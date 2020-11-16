@@ -23,6 +23,11 @@
             android:layout_height="wrap_content"
             android:hint="식재료 입력"
             android:inputType="text" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
 
         <Button
             android:id="@+id/btn_ingredient"

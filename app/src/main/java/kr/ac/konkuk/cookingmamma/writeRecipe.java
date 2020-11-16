@@ -1,10 +1,13 @@
 package kr.ac.konkuk.cookingmamma;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,10 @@ public class writeRecipe extends Activity {
     EditText recipe_ingredient;
     EditText recipe_titile;
     EditText recipe_content;
+    LinearLayout layout;
+    Context context;
+    //String recipeingre = " ";
+
 
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -28,6 +35,9 @@ public class writeRecipe extends Activity {
         recipe_ingredient = (EditText)findViewById(R.id.add_ingredient);
         recipe_titile = (EditText)findViewById(R.id.recipe_titile);
         recipe_content = (EditText)findViewById(R.id.recipe_content);
+        layout = (LinearLayout)findViewById(R.id.writelinear);
+        context = this;
+
         ingredient_textview = (TextView)findViewById(R.id.ingredient_textview);
 
     }
@@ -54,7 +64,9 @@ public class writeRecipe extends Activity {
 
         Recipe recipe = new Recipe(ingredient, title, content);
 
-        DatabaseReference recipeRef = rootRef.child("recipe");
+        DatabaseReference dataRef = rootRef.child("recipe");
+        //여기가 사용자가 아이디
+        DatabaseReference recipeRef = dataRef.child("jiyoungtt");
         recipeRef.push().setValue(recipe);
         //itemRef.child("title").setValue(title).toString();
         //itemRef.child("content").setValue(content).toString();
@@ -83,17 +95,24 @@ public class writeRecipe extends Activity {
             }
         });
 
+        toAddrecipe(view);
 
-    }
+   }
 
 
     public void addIngredient(View view){
         String rein = recipe_ingredient.getText().toString();
+
+        final Button button = new Button(context);
+        button.setText(rein.toString());
+        layout.addView(button);
+
         //rein == recipe ingredient
         FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();//root를 가지고 온다
         DatabaseReference rootRef = firebaseDatabase1.getReference();
 
         DatabaseReference dataRef = rootRef.child("recipe_ingredient");
+        //DatabaseReference ingrRef = dataRef.child("jiyoungtt-1");
 
         dataRef.push().setValue(rein);
 
@@ -101,10 +120,20 @@ public class writeRecipe extends Activity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 StringBuffer buffer = new StringBuffer();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
                     String rein = snapshot.getValue(String.class);
                     buffer.append(rein+"\t");
-                }
+
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            snapshot.getRef().removeValue();
+                            layout.removeView(button);
+                        }
+                    });
+
+
+                }//recipeingre = buffer.toString();
                 ingredient_textview.setText(buffer.toString()+"\t");
             }
             @Override

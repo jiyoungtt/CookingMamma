@@ -27,7 +27,7 @@ import java.util.ArrayList;
 //mypocket.xml
 public class myPocket extends Activity {
 
-    TextView mypocket_textview;
+   // TextView mypocket_textview;
     EditText search_ingredient;
     LinearLayout layout;
     Context context;
@@ -88,11 +88,19 @@ public class myPocket extends Activity {
                 // String data = dataSnapshot.getValue(String.class);
 
                 StringBuffer buffer = new StringBuffer();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
                     String data = snapshot.getValue(String.class);
                     //butthon.setText(data);
                     // layout.addView(butthon);
                     buffer.append(data+"\t");
+
+                    button.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            snapshot.getRef().removeValue();
+                            layout.removeView(button);
+                        }
+                    });
+
                 }
                 //mypocket_textview.setText(buffer.toString());
 
@@ -104,12 +112,6 @@ public class myPocket extends Activity {
             }
         });
 //버튼이 클릭되면 데이터를 지운다!!
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                userpocketRef.removeValue();
-                layout.removeView(button);
-            }
-        });
 
 
 
