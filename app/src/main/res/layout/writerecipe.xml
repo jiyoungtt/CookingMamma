@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="toAddrecipe"
+        android:text="CANCEL"
+        android:layout_gravity="left"
+        />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+    <Button
+        android:id="@+id/btn_saverecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="SAVE"
+        android:onClick="saveRecipe"
+        />
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_ingredient"
+        android:hint="recipe_ingredient"
+       />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_addingredient"
+        android:text="ADD"
+        android:onClick="addIngredient"
+        />
+
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/ingredient_textview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textStyle="bold"
+      android:padding="8dp"/>
+
+  <EditText
+      android:id="@+id/recipe_titile"
+      android:hint="TITLE"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <EditText
+      android:id="@+id/recipe_content"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:hint="레시피를 입력하세요"/>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newlinear2"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MENU"
+        android:onClick="toMainmenu"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="식재료 입력"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btn_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save"
+            android:onClick="clicksave"/>
+
+    </LinearLayout>
+
+
+    <!--
+        <TextView
+            android:id="@+id/mypocket_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:textSize="10dp"
+            />
+    -->
+
+    <LinearLayout
+        android:id="@+id/newlinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "951551692115",
+    "firebase_url": "https://cookingmamma-8b1c7.firebaseio.com",
+    "project_id": "cookingmamma-8b1c7",
+    "storage_bucket": "cookingmamma-8b1c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951551692115:android:f8c0e83982839bf77965a6",
+        "android_client_info": {
+          "package_name": "kr.ac.konkuk.cookingmamma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951551692115-4attg6phi4hq9g41df3tpk0ub447vh27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.ac.konkuk.cookingmamma",
+            "certificate_hash": "84ac231da89ce800d6fc9da090f8882c29db2360"
+          }
+        },
+        {
+          "client_id": "951551692115-j4085h1v0bh564jrjq83sqc901j73uja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzogaw2H8r478OXw1zHdqG2LIM5lALtyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951551692115-j4085h1v0bh564jrjq83sqc901j73uja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

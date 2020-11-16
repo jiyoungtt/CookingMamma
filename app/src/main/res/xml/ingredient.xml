@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Grid_20150827000000000227_1>
+    <totalCnt>6104</totalCnt>
+    <startRow>1</startRow>
+    <endRow>5</endRow>
+    <result>
+        <message>정상 처리되었습니다.</message>
+        <code>INFO-000</code>
+    </result>
+    <row>
+        <ROW_NUM>1</ROW_NUM>
+        <RECIPE_ID>1</RECIPE_ID>
+        <IRDNT_SN>1</IRDNT_SN>
+        <IRDNT_NM>쌀</IRDNT_NM>
+        <IRDNT_CPCTY>4컵</IRDNT_CPCTY>
+        <IRDNT_TY_CODE>3060001</IRDNT_TY_CODE>
+        <IRDNT_TY_NM>주재료</IRDNT_TY_NM>
+    </row>
+    <row>
+        <ROW_NUM>2</ROW_NUM>
+        <RECIPE_ID>1</RECIPE_ID>
+        <IRDNT_SN>2</IRDNT_SN>
+        <IRDNT_NM>안심</IRDNT_NM>
+        <IRDNT_CPCTY>200g</IRDNT_CPCTY>
+        <IRDNT_TY_CODE>3060001</IRDNT_TY_CODE>
+        <IRDNT_TY_NM>주재료</IRDNT_TY_NM>
+    </row>
+    <row>
+        <ROW_NUM>3</ROW_NUM>
+        <RECIPE_ID>1</RECIPE_ID>
+        <IRDNT_SN>3</IRDNT_SN>
+        <IRDNT_NM>콩나물</IRDNT_NM>
+        <IRDNT_CPCTY>20g</IRDNT_CPCTY>
+        <IRDNT_TY_CODE>3060001</IRDNT_TY_CODE>
+        <IRDNT_TY_NM>주재료</IRDNT_TY_NM>
+    </row>
+    <row>
+        <ROW_NUM>4</ROW_NUM>
+        <RECIPE_ID>1</RECIPE_ID>
+        <IRDNT_SN>4</IRDNT_SN>
+        <IRDNT_NM>청포묵</IRDNT_NM>
+        <IRDNT_CPCTY>1/2모</IRDNT_CPCTY>
+        <IRDNT_TY_CODE>3060001</IRDNT_TY_CODE>
+        <IRDNT_TY_NM>주재료</IRDNT_TY_NM>
+    </row>
+    <row>
+        <ROW_NUM>5</ROW_NUM>
+        <RECIPE_ID>1</RECIPE_ID>
+        <IRDNT_SN>5</IRDNT_SN>
+        <IRDNT_NM>미나리</IRDNT_NM>
+        <IRDNT_CPCTY>20g</IRDNT_CPCTY>
+        <IRDNT_TY_CODE>3060001</IRDNT_TY_CODE>
+        <IRDNT_TY_NM>주재료</IRDNT_TY_NM>
+    </row>
+</Grid_20150827000000000227_1>

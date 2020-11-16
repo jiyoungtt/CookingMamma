@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG-OUT"
+            android:onClick="toLogin"/>
+
+    </LinearLayout>
+
+   <Button
+       android:id="@+id/mypocket"
+       android:layout_width="match_parent"
+       android:layout_height="150dp"
+       android:text="식재료 등록"
+       android:onClick="myPocket"
+       android:drawableLeft="@drawable/mypocket1"
+       android:textSize="50dp"
+       android:drawablePadding="15dp"
+       android:paddingLeft="30dp"
+
+       />
+    <Button
+        android:id="@+id/searchrecipe"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="레시피 검색"
+        android:onClick="searchRecipe"
+        android:drawableLeft="@drawable/searchrecipe"
+        android:textSize="50dp"
+
+        />
+    <Button
+        android:id="@+id/addrecipe"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="레시피 추가"
+        android:onClick="addRecipe"
+        android:drawableLeft="@drawable/addrecipe"
+        android:textSize="50dp"
+        />
+
+
+</LinearLayout>
