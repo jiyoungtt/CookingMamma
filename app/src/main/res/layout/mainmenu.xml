@@ -13,6 +13,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="LOG-OUT"
+            android:background="@color/background"
+            android:textColor="@color/black"
             android:onClick="toLogin"/>
 
     </LinearLayout>
@@ -27,8 +29,10 @@
        android:textSize="50dp"
        android:drawablePadding="15dp"
        android:paddingLeft="30dp"
-
+       android:background="@color/pocket"
+       android:paddingRight="10dp"
        />
+
     <Button
         android:id="@+id/searchrecipe"
         android:layout_width="match_parent"
@@ -37,6 +41,7 @@
         android:onClick="searchRecipe"
         android:drawableLeft="@drawable/searchrecipe"
         android:textSize="50dp"
+        android:background="@color/search"
 
         />
     <Button
@@ -47,6 +52,7 @@
         android:onClick="addRecipe"
         android:drawableLeft="@drawable/addrecipe"
         android:textSize="50dp"
+        android:background="@color/add"
         />
 
 

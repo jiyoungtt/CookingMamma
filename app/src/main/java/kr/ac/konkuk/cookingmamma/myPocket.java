@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,9 @@ import java.util.ArrayList;
 
 //mypocket.xml
 public class myPocket extends Activity {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String currentID = mAuth.getCurrentUser().getUid();//현사용자 id
 
    // TextView mypocket_textview;
     EditText search_ingredient;
@@ -72,7 +76,8 @@ public class myPocket extends Activity {
         DatabaseReference rootRef = firebaseDatabase.getReference();// ()안에 아무것도 안쓰면 최상위 노드
         DatabaseReference mypocketRef = rootRef.child("mypocket");
         //요기 추가한 부분
-        final DatabaseReference userpocketRef = mypocketRef.child("jiyoungtt"); //이름에 @불가능!!
+        //final이 앞에 추가되어ㅣ 있었음!! 왜??
+        DatabaseReference userpocketRef = mypocketRef.child(currentID); //이름에 @불가능!!
 
         userpocketRef.push().setValue(data);
 

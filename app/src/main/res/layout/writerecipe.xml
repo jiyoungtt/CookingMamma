@@ -81,9 +81,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textStyle="bold"
-      android:padding="8dp"
+      android:padding="8dp"/>
+      <!--android:background="@color/white"-->
 
-      />
 
 
   <EditText
@@ -93,6 +93,7 @@
       android:layout_height="wrap_content"/>
 
   <EditText
+      android:background="@color/write"
       android:id="@+id/recipe_content"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

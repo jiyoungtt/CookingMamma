@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class writeRecipe extends Activity {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String currentID = mAuth.getCurrentUser().getUid();//현사용자 id
 
     TextView ingredient_textview;
     EditText recipe_ingredient;
@@ -66,7 +70,7 @@ public class writeRecipe extends Activity {
 
         DatabaseReference dataRef = rootRef.child("recipe");
         //여기가 사용자가 아이디
-        DatabaseReference recipeRef = dataRef.child("jiyoungtt");
+        DatabaseReference recipeRef = dataRef.child(currentID);//jiyoungtt인 부분
         recipeRef.push().setValue(recipe);
         //itemRef.child("title").setValue(title).toString();
         //itemRef.child("content").setValue(content).toString();
@@ -135,6 +139,7 @@ public class writeRecipe extends Activity {
 
                 }//recipeingre = buffer.toString();
                 ingredient_textview.setText(buffer.toString()+"\t");
+                buffer.delete(0,buffer.length());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

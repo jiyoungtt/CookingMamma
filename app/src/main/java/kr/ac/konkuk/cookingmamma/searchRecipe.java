@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,7 +17,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class searchRecipe extends Activity {
 
+
+
     TextView tv;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String currentID = mAuth.getCurrentUser().getUid();//현사용자 id
+
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.searchrecipe);
@@ -31,8 +37,23 @@ public class searchRecipe extends Activity {
         mypocket.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                //이러면 키 값까지 나옴
                 Object value = snapshot.getValue(Object.class);
                 tv.setText(value.toString());
+
+               /*
+                // *이부분 해결 해야함
+                //StringBuffer buffer = new StringBuffer();
+                for (final DataSnapshot datasnapshot : snapshot.getChildren()){
+                      String value = snapshot.getValue(String.class);
+                      tv.setText(value.toString());
+                      //buffer.append(value+"\t");
+                }
+                //Object value = snapshot.getValue(Object.class);
+                //tv.setText(buffer.toString());
+
+                */
             }
 
             @Override
@@ -40,6 +61,7 @@ public class searchRecipe extends Activity {
 
             }
         });
+
     }
 
     public void toMainmenu(View target){

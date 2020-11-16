@@ -17,6 +17,7 @@
             android:onClick="toMainmenu"
             android:text="MENU"
             android:layout_gravity="left"
+            android:background="@color/background"
             />
         <View
             android:layout_width="0dp"
@@ -30,6 +31,7 @@
             android:onClick="toWriterecipe"
             android:layout_gravity="right"
             android:text="+"
+            android:background="@color/background"
             />
     </LinearLayout>
 
