@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:onClick="toAddrecipe"
         android:text="CANCEL"
+        android:background="@color/background"
         android:layout_gravity="left"
         />
     <View
@@ -30,7 +31,11 @@
         android:layout_gravity="right"
         android:text="SAVE"
         android:onClick="saveRecipe"
-        />
+
+        android:background="@color/background"/>
+        <!--android:onClick="saveRecipe"-->
+
+    <!--레시피 저장 버튼-->
 
   </LinearLayout>
 
@@ -43,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_ingredient"
-        android:hint="recipe_ingredient"
+        android:hint="들어가는 식재료를 적어보아요~"
        />
     <View
         android:layout_width="0dp"
@@ -56,6 +61,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_addingredient"
         android:text="ADD"
+        android:background="@color/background"
         android:onClick="addIngredient"
         />
 
@@ -81,23 +87,36 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textStyle="bold"
+      android:background="@color/white"
+      android:textColor="@color/white"
       android:padding="8dp"/>
       <!--android:background="@color/white"-->
 
 
 
   <EditText
+      android:background="@color/write"
       android:id="@+id/recipe_titile"
-      android:hint="TITLE"
+      android:hint="나만의 요리의 제목은?"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
+
+  <TextView
+
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textStyle="bold"
+      android:background="@color/white"
+      android:textColor="@color/white"
+      android:padding="8dp"/>
+  <!--android:background="@color/white"-->
 
   <EditText
       android:background="@color/write"
       android:id="@+id/recipe_content"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:hint="레시피를 입력하세요"/>
+      android:hint="당신의 시크릿 레시피는?"/>
 
 
 

@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
@@ -19,28 +19,34 @@
             android:layout_gravity="left"
             android:background="@color/background"
             />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1"/>
+
+        <!-- android:onClick="toWriterecipe"-->
         <Button
             android:id="@+id/btn_addrecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="toWriterecipe"
+            android:onClick="toWriteRecipe"
             android:layout_gravity="right"
             android:text="+"
             android:background="@color/background"
             />
     </LinearLayout>
 
+
     <TextView
         android:id="@+id/somenail"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="seeWriterecipe"
+        android:textSize="40dp"
+        android:textColor="@color/black"
         />
+
 
 
 

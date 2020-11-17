@@ -17,11 +17,52 @@
     <TextView
         android:id="@+id/searchrecipe_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/black"
         android:padding="8dp"/>
 
 
 
+    <Button
+        android:id="@+id/btn1"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:background="@color/list"
+        android:text="맛없는 오이 냉국               오이 김"
+        android:onClick="btn1"
+        />
 
+    <Button
+        android:paddingTop="10dp"
+        android:id="@+id/btn2"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:background="@color/list"
+        android:onClick="btn2"
+        android:text="초간단 김치 볶음밥              김치 계란"
+        />
+
+
+    <!--
+
+    <RelativeLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+-->
 </LinearLayout>

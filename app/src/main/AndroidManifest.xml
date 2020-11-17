@@ -24,6 +24,12 @@
         </activity>
 
         <activity
+            android:name=".login"
+            android:label=".login">
+
+        </activity>
+
+        <activity
             android:name=".myPocket"
             android:label=".myPocket">
         </activity>

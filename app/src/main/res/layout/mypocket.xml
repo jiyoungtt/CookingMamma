@@ -23,7 +23,7 @@
             android:id="@+id/search_ingredient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="식재료 입력"
+            android:hint="오늘 집에 뭐가 있을까~?"
             android:inputType="text" />
         <View
             android:layout_width="0dp"

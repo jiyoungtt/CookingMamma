@@ -46,18 +46,7 @@ public class myPocket extends Activity {
         layout = (LinearLayout)findViewById(R.id.newlinear);
         context = this;
     }
-    /* 일단은 아이디를 가지고 오는 코드를 작성해 보았다. --> FAIL
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            if (requestCode == GET_STRING) {
-                if (resultCode == RESULT_OK) {
-                    userID = data.getStringExtra("USER_ID");
-                    mypocket_textview.setText(data.getStringExtra("USER_ID"));
-                    finish();
-                }
-            }
-        }
-    */
+
     public void clicksave(View view){
 
         final Button button = new Button(context);
@@ -66,6 +55,8 @@ public class myPocket extends Activity {
         String data = search_ingredient.getText().toString();
 
         button.setText(data);
+        button.setBackgroundColor(button.getResources().getColor(R.color.text));
+        //button.getResources().getColor(button.R.color.background);
         layout.addView(button);
         //button.on
         //Firebase에 실시간 저장

@@ -7,6 +7,30 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/cooking"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="60dp"
+        android:textColor="@color/text"
+        android:textStyle="bold"
+        android:text="COOKING"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="60dp"
+        android:textColor="@color/text"
+        android:textStyle="bold"
+        android:text="MAMMA"
+        android:gravity="center"
+        android:layout_below="@+id/cooking"
+        />
+
+
+
+    <TextView
         android:id="@+id/tv_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +69,7 @@
         android:inputType="textPassword"/>
 
     <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_password">
@@ -72,6 +97,22 @@
             android:layout_marginRight="50dp"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+        <ImageView
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo"/>
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

@@ -41,74 +41,26 @@ public class writeRecipe extends Activity {
         recipe_content = (EditText)findViewById(R.id.recipe_content);
         layout = (LinearLayout)findViewById(R.id.writelinear);
         context = this;
-
         ingredient_textview = (TextView)findViewById(R.id.ingredient_textview);
+
+
 
     }
 
     public void toAddrecipe(View target){
         Intent intent = new Intent(getApplicationContext(),addRecipe.class);
         startActivity(intent);
-    }
+    }//뒤로가기 버튼
 
 
-    public void saveRecipe(View view){
 
-
-        //2, Firebase 실시간 디비 관리 객체 얻어오기
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-        //3, 저장시킬 노드 참조객체 가지고오기
-        DatabaseReference rootRef = firebaseDatabase.getReference();
-
-        //1, EditText에 있는 글자들 얻어오기
-        String title =  recipe_titile.getText().toString();
-        String content = recipe_content.getText().toString();
-        String ingredient = ingredient_textview.getText().toString();
-
-        Recipe recipe = new Recipe(ingredient, title, content);
-
-        DatabaseReference dataRef = rootRef.child("recipe");
-        //여기가 사용자가 아이디
-        DatabaseReference recipeRef = dataRef.child(currentID);//jiyoungtt인 부분
-        recipeRef.push().setValue(recipe);
-        //itemRef.child("title").setValue(title).toString();
-        //itemRef.child("content").setValue(content).toString();
-
-        recipeRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                StringBuffer buffer = new StringBuffer();
-
-                for (DataSnapshot snapshot1: snapshot.getChildren()){
-                    Recipe recipe = snapshot1.getValue(Recipe.class);
-                    String ingredient = recipe.getIngredient();
-                    String title = recipe.getTitle();
-                    String content = recipe.getContent();
-                    /*
-                    for (DataSnapshot ds:snapshot.getChildren()){
-                        buffer.append(ds.getKey()+":"+ds.getValue()+"\n");
-                    }*/
-
-                    buffer.append(ingredient+"\n"+title+"\n"+content+"\n");
-                }
-                //ingredient_textview.setText(buffer);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-        toAddrecipe(view);
-
-   }
-
-
+   //레시피에 들어갈 식재료 추가
     public void addIngredient(View view){
         String rein = recipe_ingredient.getText().toString();
 
         final Button button = new Button(context);
         button.setText(rein.toString());
+        button.setBackgroundColor(button.getResources().getColor(R.color.text));
         layout.addView(button);
 
         //rein == recipe ingredient
@@ -146,9 +98,126 @@ public class writeRecipe extends Activity {
 
             }
         });
+    }
 
+    public void addTitle(View view){
+
+        String rein = recipe_titile.getText().toString();
+
+        //rein == recipe ingredient
+        FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();//root를 가지고 온다
+        DatabaseReference rootRef = firebaseDatabase1.getReference();
+
+        DatabaseReference dataRef = rootRef.child("recipe_title");
+        //DatabaseReference ingrRef = dataRef.child("jiyoungtt-1");
+
+        dataRef.push().setValue(rein);
+
+        dataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                StringBuffer buffer = new StringBuffer();
+                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String rein = snapshot.getValue(String.class);
+                    buffer.append(rein+"\t");
+
+                }//recipeingre = buffer.toString();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        toAddrecipe(view);
+    }
+
+    public void addContent(View view){
+
+        String rein = recipe_content.getText().toString();
+
+        //rein == recipe ingredient
+        FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();//root를 가지고 온다
+        DatabaseReference rootRef = firebaseDatabase1.getReference();
+
+        DatabaseReference dataRef = rootRef.child("recipe_content");
+        //DatabaseReference ingrRef = dataRef.child("jiyoungtt-1");
+
+        dataRef.push().setValue(rein);
+
+        dataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                StringBuffer buffer = new StringBuffer();
+                for (final DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String rein = snapshot.getValue(String.class);
+                    buffer.append(rein+"\t");
+
+                }//recipeingre = buffer.toString();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void saveRecipe(View view){//저장버튼을 클릭했을때
+
+        //2, Firebase 실시간 디비 관리 객체 얻어오기
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+        //3, 저장시킬 노드 참조객체 가지고오기
+        DatabaseReference rootRef = firebaseDatabase.getReference();
+
+        //1, EditText에 있는 글자들 얻어오기
+        String title =  recipe_titile.getText().toString();
+        String content = recipe_content.getText().toString();
+        String ingredient = ingredient_textview.getText().toString();
+
+        Recipe recipe = new Recipe(ingredient, title, content);
+
+        DatabaseReference dataRef = rootRef.child("recipe");
+        //여기가 사용자가 아이디
+        DatabaseReference recipeRef = dataRef.child(currentID);//jiyoungtt인 부분
+        recipeRef.push().setValue(recipe);
+
+        recipeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                StringBuffer buffer = new StringBuffer();
+
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    Recipe recipe = snapshot1.getValue(Recipe.class);
+                    String ingredient = recipe.getIngredient();
+                    String title = recipe.getTitle();
+                    String content = recipe.getContent();
+
+                    /*
+                    for (DataSnapshot ds:snapshot.getChildren()){
+                        buffer.append(ds.getKey()+":"+ds.getValue()+"\n");
+                    } */
+
+                    buffer.append(ingredient+"\n"+title+"\n"+content+"\n");
+                }
+                //ingredient_textview.setText(buffer);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+      /*
+        Intent in = new Intent();
+        in.putExtra("TITLE",recipe_titile.getText().toString());
+        setResult(RESULT_OK,in);
+        finish();
+       */
+        toAddrecipe(view);
 
     }
+
 
 
 }
