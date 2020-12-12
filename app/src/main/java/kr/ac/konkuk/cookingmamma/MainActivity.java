@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("USER_ID", email);
                             setResult(RESULT_OK, intent);
                             startActivity(intent);
-                            //Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(MainActivity.this,R.string.failed_login,Toast.LENGTH_SHORT).show();
                         }

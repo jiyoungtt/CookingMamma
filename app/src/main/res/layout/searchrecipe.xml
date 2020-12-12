@@ -33,7 +33,7 @@
         android:textColor="@color/black"
         android:textSize="20dp"
         android:background="@color/list"
-        android:text="맛없는 오이 냉국               오이 김"
+        android:text="황금계란볶음밥               계란"
         android:onClick="btn1"
         />
 
@@ -47,7 +47,7 @@
         android:textSize="20dp"
         android:background="@color/list"
         android:onClick="btn2"
-        android:text="초간단 김치 볶음밥              김치 계란"
+        android:text="꼬막비빔밥              꼬막 새싹"
         />
 
 

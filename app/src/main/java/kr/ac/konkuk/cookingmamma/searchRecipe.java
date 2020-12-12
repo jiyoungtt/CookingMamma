@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class searchRecipe extends Activity {
 
     LinearLayout layout;
@@ -63,11 +66,16 @@ public class searchRecipe extends Activity {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
                 StringBuffer buffer = new StringBuffer();
+
                 for (DataSnapshot snapshot:datasnapshot.getChildren()){
                     String value = snapshot.getValue(String.class);
-                    buffer.append(value);
-                    buffer.append("\t");
-                }tv.setText(buffer.toString()+"\t\t\t");
+                    buffer.append(value+"   ");
+                }tv.setText(buffer.toString());
+
+
+
+
+
 /*
                 //이러면 키 값까지 나옴
                 Object value = snapshot.getValue(Object.class);
@@ -91,31 +99,7 @@ public class searchRecipe extends Activity {
 
         //딱 한번만 불러온다.
 
-        mypocket.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
-                StringBuffer buffer = new StringBuffer();
-                for (DataSnapshot snapshot:datasnapshot.getChildren()){
-                    String value = snapshot.getValue(String.class);
-                    buffer.append(value+"\t");
-                }tv.setText(buffer.toString());
-/*
-                //이러면 키 값까지 나옴
-                Object value = snapshot.getValue(Object.class);
-                tv.setText(value.toString());
-
-*/              ingred = buffer.toString();
-                String [] ingredient =ingred.split("\t");
-                int leng = ingredient.length;
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         //showing();
 
@@ -177,14 +161,14 @@ public class searchRecipe extends Activity {
     }//onCreate()*************************************************************oncreate
     public void btn1(View v){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("맛없는 오이 냉국"+"\n"+"오이 김"+"\n"+"1, 오이를 가늘게 썬다"+"\n"+"2,얼음물과 김을 넣는다.");
+        alertDialogBuilder.setMessage("황금계란볶음밥 "+"\n"+"계란"+"\n"+"1, 밥과 계란을1 섞는다"+"\n"+"2,기름에 볶는다");
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
     public void btn2(View v){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("초간단 김치 볶음밥"+"\n"+"김치 계란"+"\n"+"1, 배고프다"+"\n"+"2,이것은 예시입니다");
+        alertDialogBuilder.setMessage("꼬막비빔밥"+"\n"+"꼬막  새싹"+"\n"+"1, 배부르다"+"\n"+"2,이것은 오늘저녁메뉴엤다");
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
@@ -193,10 +177,8 @@ public class searchRecipe extends Activity {
        //final String ingredient1 = "";
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
         //3, 저장시킬 노드 참조객체 가지고오기
         DatabaseReference rootRef = firebaseDatabase.getReference();
-
 
         DatabaseReference dataRef = rootRef.child("recipe");
         //여기가 사용자가 아이디

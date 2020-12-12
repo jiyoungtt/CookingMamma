@@ -120,5 +120,20 @@
 
 
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:id="@+id/photo"/>
+
+
+  <Button
+      android:id="@+id/btn_camera"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@color/background"
+      android:text="사진추가"/>
+
+
+
 
 </LinearLayout>
