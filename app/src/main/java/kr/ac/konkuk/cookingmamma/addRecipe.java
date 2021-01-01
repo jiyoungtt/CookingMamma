@@ -1,9 +1,11 @@
 package kr.ac.konkuk.cookingmamma;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class addRecipe extends Activity {
 
@@ -35,99 +39,121 @@ public class addRecipe extends Activity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String currentID = mAuth.getCurrentUser().getUid();//현사용자 id
 
-    // ListView listview;
+   // ListView listview;
+   // ArrayAdapter mAdapter;
+   // String [] retitle;
+
     String titles = "";
     Context context;
     LinearLayout layout;
-    TextView tv;
+    TextView tv0, tv1, tv2, tv3, tv4;
     Button bt;
     LinearLayout layout2;
     int delete = 1;
     int change = 1;
 
+
+    private ListView listView;
+    List fileList = new ArrayList<>();
+    ArrayAdapter adapter;
+
+
+
     public void onCreate(Bundle saveInstanceState){
+
         super.onCreate(saveInstanceState);
         setContentView(R.layout.addrecipe);
-        tv = (TextView)findViewById(R.id.somenail);
-        layout = (LinearLayout)findViewById(R.id.somenaillayout);
+
         context = this;
-        registerForContextMenu(tv);
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,fileList); //android.R.layout.simple_list_item_1
+
+        listView = findViewById(R.id.listview);
+        listView.setAdapter(adapter);
+
+        registerForContextMenu(listView);
 
 
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference recipeRef = database.child("recipe/"+currentID);
 
-        recipeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        recipeRef.addValueEventListener(new ValueEventListener() { //addListenerForSingleValueEvent
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Button button = new Button(context);
-                //String str = "";
-                StringBuffer buffer = new StringBuffer();
+               // StringBuffer buffer = new StringBuffer();
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
                     Recipe recipe = dataSnapshot.getValue(Recipe.class);
-                    String ingredient = recipe.getIngredient();
                     String title = recipe.getTitle();
-                    String content = recipe.getContent();
+                    //제목을 레시피에 저장
+                    fileList.add(title);
 
-                    buffer.append(title.toString());
-                    //  button.setText(title);
-                    //layout.addView(button);
-                    //str = title;
                     if (delete == 0){
                         dataSnapshot.getRef().removeValue();
                     }
                     if (change == 0)
                     {
                         dataSnapshot.getRef().removeValue();
-
                     }
-
-
                 }
-
-                //이부분이 화면에 뜨는 부분 이를 버튼으로 생성
-                tv.setText(buffer);
-               // tv.setText("\n");
-                //button.setText(str);
-                //layout.addView(button);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
 
     }//onCreate
 
+
+
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+
+        getMenuInflater().inflate(R.menu.menu_mytitle,menu);
         super.onCreateContextMenu(menu,v,menuInfo);
-        menu.add(0,1,0,"DELETE");
-        menu.add(0,2,0,"MODIFY");
+
+        //menu.add(0,1,0,"DELETE");
+        //menu.add(0,2,0,"MODIFY");
     }
+
+
 
     public boolean onContextItemSelected(MenuItem item)
     {
-        switch (item.getItemId()){
-            case 1:
-                //여기에 삭제
-                //TODO: db에서 삭제한다.
-                modify();
-                return true;
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
-            case 2:
-                //여기에는 수정
-                //layout.removeView(tv);
+        int index = info.position;
+
+        switch (item.getItemId() ){
+            case R.id.delete:
+               //삭제
+                modify();
+                fileList.remove(item);
+                adapter.notifyDataSetChanged();
+                break;
+
+
+            case R.id.modify:
                 onBackPressed();
                 modify();
-                return true;
+                adapter.notifyDataSetChanged();
+                break;
+                //return true;
 
             default:
                 return super.onContextItemSelected(item);
 
         }
-    }
+        return true;
+    };
+
+    AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+        }
+    };
 
 
 
@@ -146,9 +172,12 @@ public class addRecipe extends Activity {
         //Toast.makeText(this, "Back button pressed.", Toast.LENGTH_SHORT).show();
 
         super.onBackPressed();
-
     }
 
+
+
+
+    //수정
     public void modify(){
 
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -167,10 +196,35 @@ public class addRecipe extends Activity {
                     String content = recipe.getContent();
 
                     buffer.append(title.toString());
-
                     dataSnapshot.getRef().removeValue();
+                }
 
-                } layout.removeView(tv);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        final DatabaseReference database1 = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference recipeRef1 = database1.child("Recipe");
+
+        recipeRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Button button = new Button(context);
+                //String str = "";
+                StringBuffer buffer = new StringBuffer();
+                for (final DataSnapshot dataSnapshot:snapshot.getChildren()) {
+                    Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                    String ingredient = recipe.getIngredient();
+                    String title = recipe.getTitle();
+                    String content = recipe.getContent();
+                    buffer.append(title.toString());
+                    dataSnapshot.getRef().removeValue();
+                }
 
             }
 
@@ -182,9 +236,13 @@ public class addRecipe extends Activity {
 
 
 
+
     }//modify
 
 
 
 }
+
+
+
 

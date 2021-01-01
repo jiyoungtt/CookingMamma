@@ -1,20 +1,21 @@
 package kr.ac.konkuk.cookingmamma;
 
 public class Recipe {
+
     String ingredient;
     String title;
     String content;
-    //String writer;
+    String photo;
 
     public  Recipe(){
 
     }
 
-    public Recipe(String ingredient, String title, String content){
+    public Recipe(String ingredient,String title, String content, String photo){
         this.ingredient = ingredient;
         this.content = content;
         this.title = title;
-        //this.writer = writer;
+        this.photo = photo;
     }
 
     public String getIngredient() {return ingredient;}
@@ -27,6 +28,6 @@ public class Recipe {
         return content;
     }
 
-  //  public String getWriter(){return writer;}
+    public String getPhoto(){return photo;}
 
 }

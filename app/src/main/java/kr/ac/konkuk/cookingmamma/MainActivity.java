@@ -3,16 +3,14 @@ package kr.ac.konkuk.cookingmamma;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
+//import androidx.appcompat.app.AppCompatActivity;
 
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+//import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,9 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import androidx.appcompat.app.AppCompatActivity;
 import java.util.regex.Pattern;
-import android.os.AsyncTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         // 파이어베이스 인증 객체 선언
         mAuth = FirebaseAuth.getInstance();
 
-        editTextEmail = findViewById(R.id.et_eamil);
-        editTextPassword = findViewById(R.id.et_password);
+        editTextEmail = (EditText) findViewById(R.id.et_eamil);
+        editTextPassword = (EditText) findViewById(R.id.et_password);
     }
 
     public void signUp(View view){

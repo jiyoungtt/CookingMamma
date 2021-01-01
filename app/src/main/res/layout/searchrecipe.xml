@@ -24,7 +24,25 @@
         android:padding="8dp"/>
 
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:padding="8dp"/>
 
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
+<!--
     <Button
         android:id="@+id/btn1"
         android:padding="5dp"
@@ -49,7 +67,7 @@
         android:onClick="btn2"
         android:text="꼬막비빔밥              꼬막 새싹"
         />
-
+-->
 
     <!--
 

@@ -6,10 +6,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,12 +35,25 @@ public class searchRecipe extends Activity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String currentID = mAuth.getCurrentUser().getUid();//현사용자 id
     String ingred = "";
-    String ings = "";
+    String recipeingedi = "";
+    String mypocket2= "";
     String title = "";
     String [] mypocket11;// = new String[];
     String [] recipein;
     Button btn1;
     Button btn2;
+    StringBuffer pocketbuffer;
+    StringBuffer ingredientbuffer;
+
+    private ListView listView;
+    List fileList = new ArrayList<>();
+    ArrayAdapter adapter;
+
+    List ingrelist = new ArrayList<>();
+    List pocketlist = new ArrayList<>();
+
+    TextView tv1;
+
 
 
     @SuppressLint("WrongViewCast")
@@ -46,45 +62,25 @@ public class searchRecipe extends Activity {
         context = this;
         super.onCreate(saveInstanceState);
         setContentView(R.layout.searchrecipe);
-        String mylist = "";
+        final String mylist = "";
         tv = (TextView)findViewById(R.id.searchrecipe_textview);
-        btn1 = (Button)findViewById(R.id.btn1);
-        btn2 = (Button)findViewById(R.id.btn2);
+        tv1 = (TextView)findViewById(R.id.tv);
+
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
         DatabaseReference mypocket = firebaseDatabase.getReference("mypocket/"+currentID);//"mypocket/jiyoungtt"
 
-
-        //DatabaseReference dataRef = rootRef.chi
-        //참조할 경로 설정 mypocket/jiyoungtt
-
         //딱 한번만 불러온다.
-
-        mypocket.addValueEventListener(new ValueEventListener() {
+        mypocket.addValueEventListener(new ValueEventListener() { //addValueEventListener
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
-                StringBuffer buffer = new StringBuffer();
-
+                pocketbuffer = new StringBuffer();
                 for (DataSnapshot snapshot:datasnapshot.getChildren()){
                     String value = snapshot.getValue(String.class);
-                    buffer.append(value+"   ");
-                }tv.setText(buffer.toString());
-
-
-
-
-
-/*
-                //이러면 키 값까지 나옴
-                Object value = snapshot.getValue(Object.class);
-                tv.setText(value.toString());
-
-*/              ingred = buffer.toString();
-                String [] ingredient =ingred.split("\t");
-                int leng = ingredient.length;
-
+                    pocketbuffer.append(value+"   ");
+                    //mypocket11 = pocketbuffer.toString().split("   ");
+                }tv.setText(pocketbuffer.toString());
             }
 
             @Override
@@ -94,209 +90,70 @@ public class searchRecipe extends Activity {
         });
 
 
-        //DatabaseReference dataRef = rootRef.chi
-        //참조할 경로 설정 mypocket/jiyoungtt
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,fileList);
+        listView = findViewById(R.id.listview);
+        listView.setAdapter(adapter);
 
-        //딱 한번만 불러온다.
-
-
-
-        //showing();
-
-       // ingred = show();
-        //mypocket11  = ingred.split("\t");
-        //final int leng = mypocket.length();
-
-
-//여기부터 추가중
-/*
         FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
-        DatabaseReference rootRef = firebaseDatabase1.getReference();
-        DatabaseReference dataRef = rootRef.child("recipe");
-        DatabaseReference recipeRef = dataRef.child(currentID);
-        recipeRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference recipeingredient = firebaseDatabase1.getReference("Recipe");
+
+        recipeingredient.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                StringBuffer buffer = new StringBuffer();
-                StringBuffer buff = new StringBuffer();
-                StringBuffer titlebuff = new StringBuffer();
 
-                for (DataSnapshot snapshot1: snapshot.getChildren()){
-                    Recipe recipe = snapshot1.getValue(Recipe.class);
-                    String ingredient = recipe.getIngredient();
-                    String title = recipe.getTitle();
-                    String content = recipe.getContent();
-                    buffer.append(ingredient+"\n"+title+"\n"+content+"\n");
-                    buff.append(ingredient);
-                    titlebuff.append(title);
-                }
-                ings = buffer.toString();
-                recipein = ings.split("\t");
-                title = titlebuff.toString();
-                for(String me:mypocket11)
-                {
-                    for(String wo:recipein){
-                        if(wo.equals(me)){
-                            Button button = new Button(context);
-                            button.setText(title);
-                            button.setBackgroundColor
-                                    (button.getResources().getColor(R.color.background));
-                            break;
-
-                        }//하나라도 같은게 있으면 버튼으로 출력
+                for (final DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    String str = dataSnapshot.child("ingredient").getValue(String.class);
+                    recipein = str.split(",");
+                    for (int i = 1; i< recipein.length;i++){
+                        ingrelist.add(recipein[i]);
+                        Log.i("레시피의 재료들: ",recipein[i]);
                     }
-                }
-            }
+                    String mypocket2 = tv.getText().toString();
+                    mypocket11 = mypocket2.split("   ");
+                    for (int i = 0; i< mypocket11.length;i++){
+                        pocketlist.add(mypocket11[i]);
+                        Log.i("마이포켓에는 뭐가 있는가 ",mypocket11[i]);
 
+                    }
+
+                    for (int i = 0;i<mypocket11.length;i++){
+                        for (int j = 0; j<recipein.length;j++){
+                            if (mypocket11[i].equals(recipein[j])){
+                                //일치하는게 있다
+                                Log.i("일치하면 소리질러:","일치해일치해해ㅐ해해해해해해해햏일치한다고");
+                                //TODO:제목을 가지고 와서 리스트에 넣는다.
+                                Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                                String title1 = recipe.getTitle();
+                                fileList.add(title1);
+                                Log.i("일치하는 것이 제목:",title1);
+                                Log.i("일치하는 것이 제목2:",fileList.get(i).toString());
+
+                                //리스트를 클릭하면 다이얼로그로 레시피의 내용이 나온다 --> 제목, 식재료 , 내용. 사진링크
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        AlertDialog.Builder alertdb = new AlertDialog.Builder(searchRecipe.this);
+                                        alertdb.setMessage(dataSnapshot.child("title").getValue().toString()+"\n"
+                                        +dataSnapshot.child("ingredient").getValue().toString()+"\n"+
+                                                dataSnapshot.child("content").getValue().toString()+"\n"+
+                                                dataSnapshot.child("photo").getValue().toString()+"\n");
+                                    }
+                                });
+                            }
+                        }
+                    }//비교문
+
+
+                }//snapshot for문
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-*/
-//일단 여기까지
-
-
 
     }//onCreate()*************************************************************oncreate
-    public void btn1(View v){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("황금계란볶음밥 "+"\n"+"계란"+"\n"+"1, 밥과 계란을1 섞는다"+"\n"+"2,기름에 볶는다");
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
 
-    public void btn2(View v){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("꼬막비빔밥"+"\n"+"꼬막  새싹"+"\n"+"1, 배부르다"+"\n"+"2,이것은 오늘저녁메뉴엤다");
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    public void callRecipe(View v){
-       //final String ingredient1 = "";
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        //3, 저장시킬 노드 참조객체 가지고오기
-        DatabaseReference rootRef = firebaseDatabase.getReference();
-
-        DatabaseReference dataRef = rootRef.child("recipe");
-        //여기가 사용자가 아이디
-        DatabaseReference recipeRef = dataRef.child(currentID);//jiyoungtt인 부분
-        //DatabaseReference recipeRef = recipeRef1.child(title);
-        //recipeRef.push().setValue(recipe);
-        //itemRef.child("title").setValue(title).toString();
-        //itemRef.child("content").setValue(content).toString();
-
-        recipeRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                StringBuffer buffer = new StringBuffer();
-                //StringBuffer buff = new StringBuffer();
-
-                for (DataSnapshot snapshot1: snapshot.getChildren()){
-                    Recipe recipe = snapshot1.getValue(Recipe.class);
-                    String ingredient = recipe.getIngredient();
-                    String title = recipe.getTitle();
-                    String content = recipe.getContent();
-                    buffer.append(ingredient+"\n"+title+"\n"+content+"\n");
-
-                }
-                //ingredient_textview.setText(buffer);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-
-
-    }
-    //화면에 마이포켓 뜨게
-    public String show(){
-        String mylist = "";
-        tv = (TextView)findViewById(R.id.searchrecipe_textview);
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-        DatabaseReference mypocket = firebaseDatabase.getReference("mypocket/jiyoungtt");//"mypocket/jiyoungtt"
-
-        //DatabaseReference dataRef = rootRef.chi
-        //참조할 경로 설정 mypocket/jiyoungtt
-
-        //딱 한번만 불러온다.
-
-        mypocket.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-
-                StringBuffer buffer = new StringBuffer();
-                for (DataSnapshot snapshot:datasnapshot.getChildren()){
-                    String value = snapshot.getValue(String.class);
-                    buffer.append(value+"\t");
-                }tv.setText(buffer.toString());
-/*
-                //이러면 키 값까지 나옴
-                Object value = snapshot.getValue(Object.class);
-                tv.setText(value.toString());
-
-*/              ingred = buffer.toString();
-                String [] ingredient =ingred.split("\t");
-                int leng = ingredient.length;
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        return mylist;
-
-    }
-
-    public void showing(){
-        String mylist = "";
-        tv = (TextView)findViewById(R.id.searchrecipe_textview);
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-        DatabaseReference mypocket = firebaseDatabase.getReference("mypocket/jiyoungtt");//"mypocket/jiyoungtt"
-
-        //DatabaseReference dataRef = rootRef.chi
-        //참조할 경로 설정 mypocket/jiyoungtt
-
-        //딱 한번만 불러온다.
-
-        mypocket.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-
-                StringBuffer buffer = new StringBuffer();
-                for (DataSnapshot snapshot:datasnapshot.getChildren()){
-                    String value = snapshot.getValue(String.class);
-                    buffer.append(value+"\t");
-                }tv.setText(buffer.toString());
-/*
-                //이러면 키 값까지 나옴
-                Object value = snapshot.getValue(Object.class);
-                tv.setText(value.toString());
-
-*/              ingred = buffer.toString();
-                String [] ingredient =ingred.split("\t");
-                int leng = ingredient.length;
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
 
 
 
@@ -305,6 +162,5 @@ public class searchRecipe extends Activity {
         startActivity(intent);
 
     }
-    //public void btn1(){}
-    //public void btn2(){}
+
 }

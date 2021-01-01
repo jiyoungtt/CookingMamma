@@ -38,7 +38,18 @@
     </LinearLayout>
 
 
+
+    <ListView
+        android:layout_marginTop="10dp"
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+<!--
+
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,17 +57,32 @@
 
 
     <TextView
-        android:id="@+id/somenail"
+        android:id="@+id/somenail0"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="40dp"
         android:textColor="@color/black"
         />
+
+        <TextView
+            android:id="@+id/somenail1"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/somenail2"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"
+            android:textColor="@color/black"
+            />
+
 </LinearLayout>
-
-
-
-
+-->
 
 </LinearLayout>
